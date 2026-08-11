@@ -20,8 +20,22 @@ import {
  */
 export async function loadFragment(path) {
   if (path && path.startsWith('/') && !path.startsWith('//')) {
-    const resp = await fetch(`${path}.plain.html`);
-    if (resp.ok) {
+    // Local dev serves content under /content/, production serves it at root.
+    // Try the authored path first, then the alternate prefix so a
+    // /content/-prefixed fragment link still resolves on production (and vice
+    // versa) without editing the content.
+    const candidates = [path];
+    if (path.startsWith('/content/')) candidates.push(path.replace(/^\/content/, ''));
+    else candidates.push(`/content${path}`);
+
+    let resp;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const candidate of candidates) {
+      // eslint-disable-next-line no-await-in-loop
+      resp = await fetch(`${candidate}.plain.html`);
+      if (resp.ok) break;
+    }
+    if (resp && resp.ok) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();
 
