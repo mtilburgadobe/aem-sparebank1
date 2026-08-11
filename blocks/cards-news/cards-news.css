@@ -7,11 +7,14 @@
   gap: 24px;
 }
 
+/* Card — white, thin border, 16px rounded corners, clips the image top. */
 .cards-news > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
+  border: 1px solid rgb(2 10 10 / 20%);
+  border-radius: 16px;
+  background-color: var(--background-color);
+  overflow: hidden;
 }
 
 .cards-news .cards-news-card-image {
@@ -20,27 +23,45 @@
 
 .cards-news > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
+/* Body — stacked category tag, title, date. */
 .cards-news .cards-news-card-body {
-  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
 }
 
-/* first line of the body acts as an uppercase category tag (NYHETER / TIPS OG RÅD) */
-.cards-news .cards-news-card-body > p:first-child {
-  margin: 0 0 8px;
-  font-size: var(--body-font-size-xs, 0.75rem);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+/* Category tag — uppercase, small, dark. */
+.cards-news .cards-news-tag {
+  font-size: 14px;
+  line-height: 1.4;
   text-transform: uppercase;
+  color: rgb(2 10 10);
 }
 
-.cards-news .cards-news-card-body h2,
-.cards-news .cards-news-card-body h3 {
-  margin: 0 0 8px;
-  font-size: var(--heading-font-size-s, 1.25rem);
+/* Title — navy, medium weight, no underline. */
+.cards-news .cards-news-title {
+  color: rgb(0 39 118);
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-decoration: none;
+}
+
+.cards-news .cards-news-title:hover {
+  text-decoration: underline;
+}
+
+/* Date — muted grey. */
+.cards-news .cards-news-date {
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgb(103 103 103);
 }
 
 @media (width >= 600px) {

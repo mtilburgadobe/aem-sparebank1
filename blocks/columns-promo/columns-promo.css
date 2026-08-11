@@ -1,43 +1,110 @@
+/* Two-column promo band — two colored panels side by side, each with text on
+   the left and an illustration on the right (matches source banner-small). */
+
+.columns-promo-container .columns-promo-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
 .columns-promo > div {
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
-.columns-promo img {
-  width: 100%;
-}
-
-.columns-promo > div > div {
-  order: 1;
+/* Each card is a colored panel: text + illustration. */
+.columns-promo .columns-promo-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
   padding: 24px;
-  background-color: var(--light-color, #f2f2f2);
+  box-sizing: border-box;
+  background-color: rgb(216 233 242);
 }
 
-.columns-promo > div > .columns-promo-img-col {
-  order: 0;
-  padding: 0;
-  background: none;
+/* Alternate the panel backgrounds: first light blue, second light cream. */
+.columns-promo .columns-promo-card:nth-child(2) {
+  background-color: rgb(253 248 245);
 }
 
-.columns-promo > div > .columns-promo-img-col img {
-  display: block;
+.columns-promo .columns-promo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 auto;
 }
 
-.columns-promo h2,
-.columns-promo h3 {
-  margin-top: 0;
+/* Heading — navy, regular weight (source uses SpareBank1-medium at 28px). */
+.columns-promo .columns-promo-text h2,
+.columns-promo .columns-promo-text h3 {
+  margin: 0;
+  color: rgb(0 39 118);
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.columns-promo .columns-promo-text p {
+  margin: 0;
+  color: rgb(0 39 118);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* CTA — white outlined pill with blue border and text (source style). */
+.columns-promo .columns-promo-text a {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  padding: 8px 24px;
+  border: 2px solid rgb(0 90 164);
+  border-radius: 96px;
+  background: #fff;
+  color: rgb(0 90 164);
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.columns-promo .columns-promo-text a:hover {
+  background: rgb(0 90 164);
+  color: #fff;
+}
+
+/* Illustration column — sits to the right of the text, fixed width so it holds
+   the image instead of collapsing to zero in the flex row. */
+.columns-promo .columns-promo-media {
+  margin: 0;
+  flex: 0 0 150px;
+  line-height: 0;
+  text-align: right;
+}
+
+.columns-promo .columns-promo-media img {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 130px;
 }
 
 @media (width >= 900px) {
+  /* Two panels side by side, each filling half the full-bleed band. */
   .columns-promo > div {
-    align-items: stretch;
-    flex-direction: unset;
-    gap: 24px;
+    flex-direction: row;
   }
 
-  .columns-promo > div > div {
-    flex: 1;
-    order: unset;
+  .columns-promo .columns-promo-card {
+    flex: 1 1 50%;
+    padding: 32px 40px;
+    min-height: 180px;
+  }
+
+  .columns-promo .columns-promo-text h2,
+  .columns-promo .columns-promo-text h3 {
+    font-size: 28px;
   }
 }
