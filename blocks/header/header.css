@@ -13,6 +13,12 @@ header .header.block {
   line-height: 24px;
 }
 
+/* The global stylesheet clamps <header> to --nav-height (64px), which clips
+   this two-row header. Let it size to its content instead. */
+header.header-wrapper {
+  height: auto;
+}
+
 header .nav-wrapper {
   background-color: #fff;
   width: 100%;
@@ -52,7 +58,9 @@ header nav .nav-brand {
   align-items: center;
   justify-content: flex-start;
   gap: 24px;
-  padding: 8px 0;
+
+  /* Top row ~67px on the source (50px logo centered within). */
+  min-height: 67px;
 }
 
 header nav .nav-brand .nav-logo {
@@ -245,7 +253,9 @@ header nav .nav-sections ul {
   justify-content: center;
   gap: 28px;
   margin: 0;
-  padding: 12px 0;
+
+  /* Nav row ~62px on the source: 30px line-height links + 16px above/below. */
+  padding: 16px 0;
   flex-wrap: wrap;
 }
 
