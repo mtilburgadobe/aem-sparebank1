@@ -37,6 +37,7 @@ header nav {
   padding: 0 24px;
   background-color: #fff;
   font-family: inherit;
+  position: relative;
 }
 
 header nav p {
@@ -49,15 +50,24 @@ header nav .nav-brand {
   grid-area: brand;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
   padding: 8px 0;
 }
 
 header nav .nav-brand .nav-logo {
   display: inline-flex;
-  order: 2;
-  margin: 0 auto;
+}
+
+/* Desktop: center the logo in the true middle of the header, with the section
+   links on the left and the tools on the right (matches the source layout). */
+@media (width >= 900px) {
+  header nav .nav-brand .nav-logo {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    transform: translateX(-50%);
+  }
 }
 
 header nav .nav-brand .nav-logo img {
@@ -109,20 +119,33 @@ header nav .nav-search {
   align-items: center;
   gap: 6px;
   background: #fff;
-  border: none;
-  color: rgb(103 103 103);
+  border: 2px solid rgb(0 117 78);
+  border-radius: 30px;
+  color: rgb(0 117 78);
   font-size: 16px;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 8px 16px;
   font-family: inherit;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Outlined button inverts to a solid green fill on hover (matches source). */
+header nav .nav-search:hover {
+  background-color: rgb(0 117 78);
+  color: #fff;
 }
 
 header nav .nav-search-icon {
   width: 18px;
   height: 18px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23676767" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23007a4e" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* Recolor the search icon to white when the button is hovered. */
+header nav .nav-search:hover .nav-search-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
 }
 
 /* CTA + login pills */
@@ -134,6 +157,7 @@ header nav .nav-tools a {
   border: 2px solid transparent;
   white-space: nowrap;
   display: inline-block;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 header nav .nav-tools .nav-cta {
@@ -141,8 +165,9 @@ header nav .nav-tools .nav-cta {
   color: #fff;
 }
 
+/* Filled CTA darkens on hover (matches source). */
 header nav .nav-tools .nav-cta:hover {
-  background-color: rgb(0 95 63);
+  background-color: rgb(9 81 57);
 }
 
 header nav .nav-tools .nav-login {
@@ -151,8 +176,10 @@ header nav .nav-tools .nav-login {
   border: 2px solid rgb(0 117 78);
 }
 
+/* Outlined login inverts to a solid green fill on hover (matches source). */
 header nav .nav-tools .nav-login:hover {
-  background-color: rgb(0 117 78 / 8%);
+  background-color: rgb(0 117 78);
+  color: #fff;
 }
 
 /* Login dropdown panel */
@@ -176,7 +203,8 @@ header nav .nav-tools .nav-login-panel {
   z-index: 10;
 }
 
-header nav .nav-tools .nav-login-item[aria-expanded='true'] .nav-login-panel {
+header nav .nav-tools .nav-login-item:hover .nav-login-panel,
+header nav .nav-tools .nav-login-item:focus-within .nav-login-panel {
   display: block;
 }
 
@@ -201,12 +229,12 @@ header nav .nav-tools .nav-login-panel a:hover {
 /* ---------- Main navigation (row 2) ---------- */
 header nav .nav-sections {
   grid-area: sections;
-  border-top: 1px solid rgb(0 0 0 / 8%);
 }
 
 header nav .nav-sections ul {
   list-style: none;
   display: flex;
+  justify-content: center;
   gap: 28px;
   margin: 0;
   padding: 12px 0;
@@ -214,9 +242,10 @@ header nav .nav-sections ul {
 }
 
 header nav .nav-sections a {
-  color: rgb(0 39 118);
+  color: rgb(74 81 85);
   font-size: 16px;
   line-height: 30px;
+  font-family: inherit;
   text-decoration: none;
   white-space: nowrap;
 }

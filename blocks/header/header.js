@@ -78,31 +78,21 @@ export default async function decorate(block) {
       else a.classList.add('nav-cta');
     });
 
-    // Login has a sub-list (Nettbank privat/bedrift) — turn it into a dropdown
-    // toggled by the "Logg inn" control, mirroring the source's login panel.
+    // Login has a sub-list (Nettbank privat/bedrift) — mark it as a dropdown
+    // that reveals its panel on hover/focus (CSS-driven). The "Logg inn" link
+    // itself still navigates to the login page on click.
     const loginItem = navTools.querySelector('.nav-login')?.closest('li');
     const loginPanel = loginItem?.querySelector('ul');
-    const loginLink = loginItem?.querySelector('.nav-login');
-    if (loginItem && loginPanel && loginLink) {
+    if (loginItem && loginPanel) {
       loginItem.classList.add('nav-login-item');
       loginPanel.classList.add('nav-login-panel');
-      loginItem.setAttribute('aria-expanded', 'false');
-      loginLink.addEventListener('click', (e) => {
-        // Toggle the panel instead of navigating away.
-        e.preventDefault();
-        const open = loginItem.getAttribute('aria-expanded') === 'true';
-        loginItem.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-      // Close the panel when clicking outside it.
-      document.addEventListener('click', (e) => {
-        if (!loginItem.contains(e.target)) loginItem.setAttribute('aria-expanded', 'false');
-      });
     }
 
-    // Build the search control (form controls live in JS, per the nav contract).
-    const search = document.createElement('button');
-    search.type = 'button';
+    // Build the search control as a link to the search page (matches the source,
+    // where "Søk" opens search). Form controls live in JS per the nav contract.
+    const search = document.createElement('a');
     search.className = 'nav-search';
+    search.href = '/nb/bank/privat.html?search=';
     search.setAttribute('aria-label', 'Søk');
     search.innerHTML = '<span class="nav-search-icon"></span><span>Søk</span>';
     navTools.prepend(search);
