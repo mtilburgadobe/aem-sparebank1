@@ -158,6 +158,19 @@ With this information, you can construct URLs for the preview environment (same 
 
 ## Troubleshooting
 
+### Preview fails with 409 "SVG is larger than 40KB"
+
+AEM's document-to-markdown pipeline (`admin.hlx.page/preview`) rejects any SVG over 40KB and returns a `409 Conflict` that blocks the **entire** page from previewing, not just the image. Source sites often ship Illustrator-exported SVGs above this limit.
+
+Fix: run the post-import SVG sweep, which finds every oversized SVG in the Document Authoring content source, optimizes it losslessly with SVGO (multipass), and re-uploads it in place:
+
+```
+npm run import:optimize-svgs             # whole site, org/site read from .migration/project.json
+npm run import:optimize-svgs -- --dry-run --path /nb/bank   # preview changes, scoped subtree
+```
+
+Run it after every content import. SVGs already under the limit are skipped; any that can't be brought under 40KB are reported for manual handling (rasterize or redraw).
+
 ### Getting Help
 - Check [AEM Edge Delivery documentation](https://www.aem.live/docs/)
 - Review [Developer Tutorial](https://www.aem.live/developer/tutorial)
