@@ -74,6 +74,77 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Applies `.section-metadata` blocks as section modifiers, then removes them.
+ * The bundled aem.js in this project doesn't process section-metadata, so the
+ * "style" value would otherwise render as stray text and be picked up as a
+ * (non-existent) block. Read each key/value and add `<value>` as a class on the
+ * owning section (e.g. style: warm-cream → section.warm-cream).
+ * @param {Element} main The container element
+ */
+function applySectionMetadata(main) {
+  main.querySelectorAll(':scope > div > .section-metadata').forEach((meta) => {
+    const section = meta.parentElement;
+    [...meta.children].forEach((row) => {
+      const cells = [...row.children];
+      if (cells.length < 2) return;
+      const key = cells[0].textContent.trim().toLowerCase();
+      const value = cells[1].textContent.trim();
+      if (key === 'style' && value) {
+        value.split(',').forEach((cls) => {
+          const name = cls.trim().replace(/\s+/g, '-').toLowerCase();
+          if (name) section.classList.add(name);
+        });
+      }
+    });
+    meta.remove();
+  });
+}
+
+/**
+ * Turns a section of link groups introduced by ALL-CAPS labels (e.g. "OM OSS",
+ * "SNARVEIER") into a columns block — one column per label group. Matches the
+ * source's footer-style link columns.
+ * @param {Element} main The container element
+ */
+function buildLinkColumnsAutoBlocks(main) {
+  const isLabel = (p) => p
+    && p.tagName === 'P'
+    && !p.querySelector('a')
+    && p.textContent.trim()
+    && p.textContent.trim() === p.textContent.trim().toUpperCase()
+    && /[A-ZÆØÅ]/.test(p.textContent);
+
+  [...main.children].forEach((section) => {
+    const paragraphs = [...section.children].filter((el) => el.tagName === 'P');
+    const labels = paragraphs.filter(isLabel);
+    if (labels.length < 2) return;
+    // Only transform when the section is essentially just these link groups.
+    if (paragraphs.some((p) => !isLabel(p) && !p.querySelector('a'))) return;
+
+    // Group each label with the link paragraphs that follow it.
+    const groups = [];
+    let current = null;
+    [...section.children].forEach((el) => {
+      if (isLabel(el)) {
+        current = [el];
+        groups.push(current);
+      } else if (current && el.tagName === 'P' && el.querySelector('a')) {
+        current.push(el);
+      }
+    });
+    if (groups.length < 2) return;
+
+    // Remember where to insert before buildBlock() detaches the group elements.
+    const insertBeforeNode = groups[0][0].previousElementSibling;
+    const cols = groups.map((elems) => ({ elems }));
+    const block = buildBlock('columns', [cols]);
+    block.classList.add('link-columns');
+    if (insertBeforeNode) insertBeforeNode.after(block);
+    else section.prepend(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -97,6 +168,8 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildLinkColumnsAutoBlocks(main);
+    applySectionMetadata(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

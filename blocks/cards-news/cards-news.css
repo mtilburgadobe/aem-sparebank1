@@ -1,3 +1,21 @@
+/* The source leaves a larger gap (~144px) above the "Nytt og nyttig" section
+   than the default 40px section margin. Push the whole section down to match. */
+main > .section.cards-news-container {
+  margin-top: 144px;
+}
+
+/* Section heading ("Nytt og nyttig") — default content above the cards.
+   Navy, regular-width medium weight, centered (matches source). */
+.cards-news-container .default-content-wrapper h2 {
+  margin: 0 0 24px;
+  color: rgb(0 39 118);
+  font-family: var(--body-font-family);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: center;
+}
+
 .cards-news > ul {
   list-style: none;
   margin: 0;
@@ -15,6 +33,14 @@
   border-radius: 16px;
   background-color: var(--background-color);
   overflow: hidden;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover — tint the card light blue and add a subtle darker ring (matches
+   source: background rgb(231 241 249), box-shadow ring rgba(2 10 10 / 25%)). */
+.cards-news > ul > li:hover {
+  background-color: rgb(231 241 249);
+  box-shadow: 0 0 0 1px rgb(2 10 10 / 25%);
 }
 
 .cards-news .cards-news-card-image {

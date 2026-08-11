@@ -31,3 +31,48 @@
     order: unset;
   }
 }
+
+/* ---------- Link-columns variant (footer-style link groups) ---------- */
+
+/* Each column: an ALL-CAPS label followed by a list of blue links. */
+.columns.link-columns > div {
+  gap: 32px;
+  align-items: start;
+}
+
+.columns.link-columns > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.columns.link-columns p {
+  margin: 0;
+}
+
+/* Group label (OM OSS / SNARVEIER) — dark, uppercase. */
+.columns.link-columns p:first-child {
+  margin: 0 0 4px;
+  color: rgb(2 10 10);
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Links — SpareBank 1 blue with a persistent underline (matches source). */
+.columns.link-columns a {
+  color: rgb(0 90 164);
+  font-size: 16px;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.columns.link-columns a:hover {
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .columns.link-columns > div {
+    align-items: start;
+  }
+}
