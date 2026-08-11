@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "bank-landing-page",
+      "urls": [
+        "https://www.sparebank1.no/nb/bank/privat.html"
+      ],
+      "coverageGaps": [],
+      "description": "SpareBank 1 privat banking landing page: hero campaign banner, multi-column link/topic grids in a background container, a two-column small banner (bank switch / LO membership), a news & tips card feed, an about/shortcuts link section, and a price comparison text block.",
+      "blocks": [
+        {
+          "name": "hero-campaign",
+          "instances": [
+            "#main-content > div.campaign-carousel.parbase.color-fillable:nth-of-type(3)"
+          ]
+        },
+        {
+          "name": "cards-topic",
+          "instances": [
+            "#main-content > div.background-container.parbase.color-fillable:nth-of-type(5)"
+          ]
+        },
+        {
+          "name": "columns-promo",
+          "instances": [
+            "#main-content > div.banner-small.parbase"
+          ]
+        },
+        {
+          "name": "cards-news",
+          "instances": [
+            "#main-content > div.related-topics.parbase.color-fillable div.newsfeed"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero campaign banner",
+          "selector": "#main-content > div.campaign-carousel.parbase.color-fillable:nth-of-type(3)",
+          "style": null,
+          "blocks": [
+            "hero-campaign"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Product/topic link grid",
+          "selector": "#main-content > div.background-container.parbase.color-fillable:nth-of-type(5)",
+          "style": null,
+          "blocks": [
+            "cards-topic"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Two-column small banner",
+          "selector": "#main-content > div.banner-small.parbase",
+          "style": null,
+          "blocks": [
+            "columns-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "News & tips card feed",
+          "selector": "#main-content > div.related-topics.parbase.color-fillable",
+          "style": null,
+          "blocks": [
+            "cards-news"
+          ],
+          "defaultContent": [
+            "#main-content > div.related-topics.parbase.color-fillable div.title h2"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "About / shortcuts link columns",
+          "selector": "#main-content > div.background-container.parbase.color-fillable:nth-of-type(12)",
+          "style": "warm-cream",
+          "blocks": [],
+          "defaultContent": [
+            "#main-content > div.background-container.parbase.color-fillable:nth-of-type(12)"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "Price-comparison text block",
+          "selector": "#main-content > div.text",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#main-content > div.text"
+          ]
+        }
+      ]
+    }
+  ]
+}

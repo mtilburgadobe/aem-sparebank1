@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-campaign",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-11T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.sparebank1.no/nb/bank/privat.html",
+    "originPage": "SpareBank 1 private banking landing page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "colored",
+    "density": "spacious",
+    "purpose": "campaign-hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + paragraph + 1 CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width promotional campaign banners",
+      "landing page intro banners with a single CTA",
+      "product/offer hero banners on a colored panel"
+    ],
+    "notSuitableFor": [
+      "text-only page intros with no image",
+      "multi-slide rotating carousels"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/nb/bank/privat"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-11T00:00:00.000Z"
+  }
+}

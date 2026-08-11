@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.sparebank1.no/nb/bank/privat.html",
+  "path": "nb/bank/privat",
+  "timestamp": "2026-08-11T08:50:55.220Z",
+  "title": "Privat | SpareBank 1",
+  "template": "bank-landing-page",
+  "blocks": [
+    "hero-campaign",
+    "cards-topic",
+    "columns-promo",
+    "cards-news"
+  ]
+}

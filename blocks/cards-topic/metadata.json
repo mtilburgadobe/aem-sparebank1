@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-topic",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-08-11T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.sparebank1.no/nb/bank/privat.html",
+    "originPage": "SpareBank 1 private banking landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "topic-navigation",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + link-list",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "itemCount": 6,
+    "columns": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "topic/product navigation grids",
+      "icon + heading + link-list groupings",
+      "borderless illustrated category tiles"
+    ],
+    "notSuitableFor": [
+      "photo-led article/news cards",
+      "cards requiring bordered photo thumbnails"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/nb/bank/privat"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-11T00:00:00.000Z"
+  }
+}

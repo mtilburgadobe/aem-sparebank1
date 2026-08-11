@@ -1,0 +1,10 @@
+{
+  "type": "doc",
+  "sites": {
+    "aem-sparebank1": {
+      "previewOrg": "mtilburgadobe",
+      "previewSite": "aem-sparebank1",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

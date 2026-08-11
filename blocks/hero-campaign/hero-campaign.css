@@ -1,0 +1,98 @@
+.hero-campaign-container .hero-campaign-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-campaign {
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f9;
+  overflow: hidden;
+}
+
+/* Content column: heading, text, CTA */
+.hero-campaign .hero-campaign-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+.hero-campaign .hero-campaign-content > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-campaign h1,
+.hero-campaign h2,
+.hero-campaign h3,
+.hero-campaign h4,
+.hero-campaign h5,
+.hero-campaign h6 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.hero-campaign .hero-campaign-content p {
+  margin: 0;
+  color: var(--text-color);
+}
+
+/* CTA button (matches SpareBank 1 green action button) */
+.hero-campaign .hero-campaign-content a {
+  display: inline-block;
+  width: fit-content;
+  padding: 12px 24px;
+  border-radius: 24px;
+  background-color: #007272;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero-campaign .hero-campaign-content a:hover {
+  background-color: #005a5a;
+}
+
+/* Image column */
+.hero-campaign .hero-campaign-image {
+  display: flex;
+}
+
+.hero-campaign .hero-campaign-image picture {
+  display: block;
+  width: 100%;
+}
+
+.hero-campaign .hero-campaign-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-campaign.no-image .hero-campaign-content {
+  align-items: center;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  /* Source markup lists the image column first but uses --reverse grid classes,
+     so text renders on the left and the image on the right. */
+  .hero-campaign {
+    flex-direction: row-reverse;
+  }
+
+  /* Text panel on the left (~42%), image on the right (~58%) — matches source col-5 / col-7 split */
+  .hero-campaign .hero-campaign-content {
+    flex: 0 0 42%;
+    padding: 48px 56px;
+  }
+
+  .hero-campaign .hero-campaign-image {
+    flex: 1 1 58%;
+  }
+}

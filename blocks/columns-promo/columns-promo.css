@@ -1,0 +1,43 @@
+.columns-promo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.columns-promo img {
+  width: 100%;
+}
+
+.columns-promo > div > div {
+  order: 1;
+  padding: 24px;
+  background-color: var(--light-color, #f2f2f2);
+}
+
+.columns-promo > div > .columns-promo-img-col {
+  order: 0;
+  padding: 0;
+  background: none;
+}
+
+.columns-promo > div > .columns-promo-img-col img {
+  display: block;
+}
+
+.columns-promo h2,
+.columns-promo h3 {
+  margin-top: 0;
+}
+
+@media (width >= 900px) {
+  .columns-promo > div {
+    align-items: stretch;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-promo > div > div {
+    flex: 1;
+    order: unset;
+  }
+}
