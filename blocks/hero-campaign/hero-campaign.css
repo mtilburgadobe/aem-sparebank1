@@ -6,7 +6,9 @@
 .hero-campaign {
   display: flex;
   flex-direction: column;
-  background-color: #f2f2f9;
+
+  /* Campaign panel background — light blue, matches source (#d8e9f2). */
+  background-color: #d8e9f2;
   overflow: hidden;
 }
 
@@ -26,6 +28,7 @@
   gap: 16px;
 }
 
+/* Heading — navy, regular weight (matches source campaign title). */
 .hero-campaign h1,
 .hero-campaign h2,
 .hero-campaign h3,
@@ -33,28 +36,39 @@
 .hero-campaign h5,
 .hero-campaign h6 {
   margin: 0;
-  color: var(--text-color);
+  color: rgb(0 39 118);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.2;
 }
 
+/* Body copy — dark grey, 16px/24px (matches source). */
 .hero-campaign .hero-campaign-content p {
   margin: 0;
-  color: var(--text-color);
+  color: rgb(38 38 38);
+  font-size: 16px;
+  line-height: 24px;
 }
 
-/* CTA button (matches SpareBank 1 green action button) */
+/* CTA button — SpareBank 1 green pill (matches source action button). */
 .hero-campaign .hero-campaign-content a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
-  padding: 12px 24px;
-  border-radius: 24px;
-  background-color: #007272;
+  padding: 8px 24px;
+  border: 2px solid transparent;
+  border-radius: 96px;
+  background-color: rgb(0 117 78);
   color: #fff;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
   text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
 .hero-campaign .hero-campaign-content a:hover {
-  background-color: #005a5a;
+  background-color: rgb(9 81 57);
 }
 
 /* Image column */
@@ -62,9 +76,19 @@
   display: flex;
 }
 
+/* The block wraps the picture in an intermediate cell <div>. Force it (and the
+   picture) to fill the column so the image covers it edge-to-edge at any width;
+   otherwise the cell shrink-wraps to the image's aspect-ratio width and the
+   panel background shows through on wide screens. */
+.hero-campaign .hero-campaign-image > div {
+  width: 100%;
+  height: 100%;
+}
+
 .hero-campaign .hero-campaign-image picture {
   display: block;
   width: 100%;
+  height: 100%;
 }
 
 .hero-campaign .hero-campaign-image img {
@@ -84,12 +108,39 @@
      so text renders on the left and the image on the right. */
   .hero-campaign {
     flex-direction: row-reverse;
+
+    /* Source banner is a fixed 400px-tall panel on desktop; the image fills it
+       via object-fit: cover rather than dictating the height. */
+    height: 400px;
   }
 
   /* Text panel on the left (~42%), image on the right (~58%) — matches source col-5 / col-7 split */
   .hero-campaign .hero-campaign-content {
     flex: 0 0 42%;
-    padding: 48px 56px;
+    padding: 48px 40px;
+
+    /* Source pushes the text block to the right side of the left column
+       (class campaign-bg__align-right, margin-left: 150px) so it sits close to
+       the image boundary rather than hugging the panel's left edge. */
+    align-items: flex-end;
+  }
+
+  /* Constrain the text block so it wraps like the source (~400px) and, aligned
+     to flex-end above, sits toward the right of the panel next to the image. */
+  .hero-campaign .hero-campaign-content > div {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Source campaign title is 36px/44px on desktop. */
+  .hero-campaign h1,
+  .hero-campaign h2,
+  .hero-campaign h3,
+  .hero-campaign h4,
+  .hero-campaign h5,
+  .hero-campaign h6 {
+    font-size: 36px;
+    line-height: 44px;
   }
 
   .hero-campaign .hero-campaign-image {
