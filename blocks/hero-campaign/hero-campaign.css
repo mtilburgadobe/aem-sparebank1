@@ -28,7 +28,10 @@
   gap: 16px;
 }
 
-/* Heading — navy, regular weight (matches source campaign title). */
+/* Heading — navy, regular-width medium weight. The source uses
+   SpareBank1-title-medium (a regular-width, medium-weight face), so use the
+   body font (roboto) at 500 rather than the condensed default heading font.
+   text-wrap: balance keeps multi-line headings from dropping a lone word. */
 .hero-campaign h1,
 .hero-campaign h2,
 .hero-campaign h3,
@@ -37,9 +40,11 @@
 .hero-campaign h6 {
   margin: 0;
   color: rgb(0 39 118);
-  font-weight: 400;
+  font-family: var(--body-font-family);
+  font-weight: 500;
   font-size: 28px;
   line-height: 1.2;
+  text-wrap: balance;
 }
 
 /* Body copy — dark grey, 16px/24px (matches source). */

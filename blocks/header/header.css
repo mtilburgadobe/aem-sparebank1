@@ -130,31 +130,34 @@ header nav .nav-tools li > p {
   align-items: center;
 }
 
-header nav .nav-search {
+/* Search — grey-outlined pill (matches source: grey text/border, radius 35px).
+   Scoped under .nav-tools to outrank the generic `.nav-tools a` pill rule. */
+header nav .nav-tools .nav-search {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: #fff;
-  border: 2px solid rgb(0 117 78);
-  border-radius: 30px;
-  color: rgb(0 117 78);
+  border: 2px solid rgb(103 103 103);
+  border-radius: 35px;
+  color: rgb(103 103 103);
   font-size: 16px;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 8px 15px;
   font-family: inherit;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Outlined button inverts to a solid green fill on hover (matches source). */
-header nav .nav-search:hover {
-  background-color: rgb(0 117 78);
+/* Search inverts to a solid blue fill on hover (matches source). */
+header nav .nav-tools .nav-search:hover {
+  background-color: rgb(0 90 164);
+  border-color: rgb(0 90 164);
   color: #fff;
 }
 
 header nav .nav-search-icon {
   width: 18px;
   height: 18px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23007a4e" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23676767" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
 }

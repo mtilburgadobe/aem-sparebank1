@@ -1,3 +1,7 @@
+/* stylelint-disable no-descending-specificity -- link rules are grouped per
+   element (heading link, then paragraph links) for readability; each group's
+   :hover follows its base rule locally. */
+
 .cards-topic > ul {
   list-style: none;
   margin: 0;
@@ -8,34 +12,62 @@
 }
 
 .cards-topic > ul > li {
-  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+
+  /* Source cards: transparent, left-aligned, small side padding, no border. */
+  align-items: flex-start;
+  text-align: left;
+  padding: 0 16px;
+  background-color: transparent;
 }
 
+/* Topic cards use illustrated icons (not full-bleed photos), left-aligned. */
 .cards-topic .cards-topic-card-image {
   line-height: 0;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-/* topic cards use illustrated icons, not full-bleed photos */
 .cards-topic .cards-topic-card-image img {
   width: auto;
   max-height: 64px;
   object-fit: contain;
 }
 
+/* Heading link — SpareBank 1 blue, regular weight (source uses
+   SpareBank1-title-medium at weight 400; use the body font, not the condensed
+   heading font). */
 .cards-topic .cards-topic-card-body h2,
 .cards-topic .cards-topic-card-body h3 {
-  margin: 0 0 8px;
+  margin: 0 0 16px;
+  font-family: var(--body-font-family);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
 }
 
-.cards-topic .cards-topic-card-body ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* Heading + sublinks carry a persistent thin blue underline (source uses a
+   1px bottom border on the inline anchor, not text-decoration). */
+.cards-topic .cards-topic-card-body h2 a,
+.cards-topic .cards-topic-card-body h3 a {
+  color: rgb(0 90 164);
+  font: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(0 90 164);
 }
 
-.cards-topic .cards-topic-card-body li {
-  margin: 4px 0;
+/* Sublinks — blue, 16px, one per line, with the same thin underline. */
+.cards-topic .cards-topic-card-body p {
+  margin: 20px 0 0;
+  line-height: 1;
+}
+
+.cards-topic .cards-topic-card-body p a {
+  color: rgb(0 90 164);
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(0 90 164);
 }
 
 @media (width >= 600px) {
@@ -47,5 +79,11 @@
 @media (width >= 900px) {
   .cards-topic > ul {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Source heading is 36px on desktop. */
+  .cards-topic .cards-topic-card-body h2,
+  .cards-topic .cards-topic-card-body h3 {
+    font-size: 36px;
   }
 }
