@@ -70,10 +70,13 @@ export default async function decorate(block) {
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
     // Top-level tool links: "Bli kunde" (CTA) and "Logg inn" (login).
-    // EDS wraps default content in a .default-content-wrapper, so target the
-    // outer <ul>'s direct <li> children.
+    // The nav list may render as bare `<li><a>` (GitHub) or `<li><p><a>` (DA/
+    // markdown conversion wraps links in a paragraph), so take each top-level
+    // <li>'s first anchor rather than assuming a direct <li> > <a> relationship.
     const toolsList = navTools.querySelector('ul');
-    toolsList?.querySelectorAll(':scope > li > a').forEach((a) => {
+    toolsList?.querySelectorAll(':scope > li').forEach((li) => {
+      const a = li.querySelector('a');
+      if (!a) return;
       if (/logg\s*inn/i.test(a.textContent)) a.classList.add('nav-login');
       else a.classList.add('nav-cta');
     });

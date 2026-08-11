@@ -114,6 +114,14 @@ header nav .nav-tools ul {
   padding: 0;
 }
 
+/* DA/markdown may wrap each tool link in a <p>; strip its default spacing so
+   the pill buttons sit inline like the bare-anchor version. */
+header nav .nav-tools li > p {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
 header nav .nav-search {
   display: inline-flex;
   align-items: center;
