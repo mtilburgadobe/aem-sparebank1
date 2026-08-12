@@ -296,7 +296,7 @@ var CustomImportScript = (() => {
       element.querySelectorAll("a[href]").forEach((a) => {
         const href = a.getAttribute("href");
         if (!href) return;
-        let path = href.replace(/^https?:\/\/www\.sparebank1\.no/, "");
+        let path = href.replace(/^https?:\/\/[a-z0-9-]+\.sparebank1\.no/, "");
         if (!path.startsWith("/")) return;
         path = path.replace(/^\/content\/sites\/sb1(?=\/)/, "");
         path = path.replace(/\.html(?=$|[?#])/, "");

@@ -117,9 +117,11 @@ export default function transform(hookName, element, payload) {
     element.querySelectorAll('a[href]').forEach((a) => {
       const href = a.getAttribute('href');
       if (!href) return;
-      // Only touch site-internal links (root-relative or same-origin sparebank1.no).
+      // Only touch site-internal links. Cover root-relative links and absolute
+      // links on any sparebank1.no host — including link-shortener/redirect
+      // subdomains like lenker.sparebank1.no, which still carry /content paths.
       let path = href
-        .replace(/^https?:\/\/www\.sparebank1\.no/, '');
+        .replace(/^https?:\/\/[a-z0-9-]+\.sparebank1\.no/, '');
       if (!path.startsWith('/')) return;
       // Drop the AEM repository prefix.
       path = path.replace(/^\/content\/sites\/sb1(?=\/)/, '');
