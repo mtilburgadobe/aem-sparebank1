@@ -47,6 +47,12 @@ export default function transform(hookName, element, payload) {
     //      <div class="market-nav">       (market navigation)
     //      <div class="bank-choice">      (local bank-picker widget)
     //      <footer class="footer-wrapper">(site footer)
+    //
+    // On article pages (body.sb1-article__layout1) the nav header and the site
+    // footer are rendered INSIDE #main-content as <header class="header"> and
+    // <footer class="footer"> (NOT footer-wrapper) — hence the extra footer.footer
+    // selector so the "Snarveier / Logg inn / Sosiale medier" footer band is not
+    // ingested as article content.
     WebImporter.DOMUtils.remove(element, [
       'nav.page-nav',
       '#outer-main-wrap > aside',
@@ -54,6 +60,7 @@ export default function transform(hookName, element, payload) {
       'div.market-nav',
       'div.bank-choice',
       'footer.footer-wrapper',
+      'footer.footer',
     ]);
 
     // 2) Interior #main-content non-authorable content. Removed AFTER parsers so
@@ -80,7 +87,38 @@ export default function transform(hookName, element, payload) {
         }
       });
 
-    // 4) Leftover non-authorable elements. Empty <source> tags exist inside
+    // 4) Article-page chrome (body.sb1-article__layout1). These live INSIDE the
+    //    article and are non-authorable UI:
+    //      div.some                 (Facebook/LinkedIn/Twitter share buttons)
+    //      div.glossary-backdrop    (hidden glossary overlay)
+    //      div.glossary-modal       (hidden per-term glossary popup)
+    WebImporter.DOMUtils.remove(element, [
+      'div.some',
+      'div.glossary-backdrop',
+      'div.glossary-modal',
+    ]);
+
+    // 5) Article "story" variant (body.sb1-story): the long-form layout renders
+    //    a <header class="... sb1-story__header"> (site nav — already covered by
+    //    header.header above) and a single <div class="sb1-story__body"> wrapper.
+    //    There is no separate tag/byline/aside. Remove the "Les mer" modal button
+    //    that trails pull-quotes (chrome).
+    WebImporter.DOMUtils.remove(element, [
+      'button.button--open-modal',
+    ]);
+
+    // 6) Unwrap the article container(s) so their regions become direct children
+    //    of #main-content. For sb1-article that yields three sections (header,
+    //    content, aside); for sb1-story it flattens the single body wrapper. The
+    //    sections transformer maps top-level #main-content children to sections
+    //    positionally, so the wrapper must be removed before it runs (cleanup is
+    //    ordered before sections in the transformer registry). No-op when neither
+    //    wrapper exists (non-article templates).
+    element.querySelectorAll('div.sb1-article, div.sb1-story__body').forEach((wrapper) => {
+      wrapper.replaceWith(...wrapper.childNodes);
+    });
+
+    // 6) Leftover non-authorable elements. Empty <source> tags exist inside
     //    <picture> (line 329-330); the others are defensive (none may be present).
     WebImporter.DOMUtils.remove(element, [
       'source',

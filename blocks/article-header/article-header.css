@@ -1,0 +1,105 @@
+/* Article header — hero image, category tag chip, H1, author/date byline.
+   Styles match https://www.sparebank1.no/nb/bank/.../artikler/*.html */
+
+/* Card width (max-width 1144px) and 40px side padding are set globally on the
+   article card wrappers in styles.css (body:has(.article-header) ...). Here we
+   only add the 40px top gap between the site header and the start of the card. */
+main .section.article-header-container > .article-header-wrapper {
+  margin-top: 40px;
+}
+
+/* The whole header is centered (image caption, tag chip, title and byline all
+   sit on the article's centre line — matching the live layout). */
+.article-header {
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+/* Hero image — full content-width, cropped landscape banner. 40px padding on the
+   top and sides; no bottom padding/margin so the caption's divider line meets the
+   top of the tag chip below it (matching the live layout). */
+.article-header .article-header-image {
+  margin: 0;
+  padding: 40px 40px 0;
+}
+
+.article-header .article-header-image figure {
+  margin: 0;
+}
+
+.article-header .article-header-image picture,
+.article-header .article-header-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 488px;
+  object-fit: cover;
+}
+
+/* Caption — centered italic grey text with a full-width divider line beneath it.
+   The line (border-bottom) sits flush with the top edge of the tag chip. */
+.article-header .article-header-image figcaption {
+  margin-top: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(173 173 173);
+  color: rgb(103 103 103);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Category tag chip — uppercase, white on brand blue, centered. */
+.article-header .article-header-tag {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 8px;
+  background: var(--link-color, rgb(0 90 164));
+  color: rgb(255 255 255);
+  font-size: 0.75rem;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+/* H1 title — navy, title font, large, centered. The source uses the
+   SpareBank1-title-medium display face (a medium-weight cut) at weight 400; since
+   that webfont isn't installed here the heading falls back to Roboto, so we use
+   weight 500 to emulate the heavier "medium" title face. text-wrap: balance
+   distributes the title over evenly-sized lines to match the live wrapping. */
+.article-header .article-header-title {
+  margin: 24px 0 16px;
+  color: var(--heading-color, rgb(0 39 118));
+  font-size: 2.25rem;
+  line-height: 1.15;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+/* Byline — small author (blue) + date (grey, bold), centered under the title. */
+.article-header .article-header-byline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.article-header .article-header-author {
+  color: var(--link-color, rgb(0 90 164));
+  font-weight: 400;
+}
+
+.article-header .article-header-date {
+  color: rgb(103 103 103);
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  .article-header .article-header-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin: 40px 0 32px;
+  }
+}

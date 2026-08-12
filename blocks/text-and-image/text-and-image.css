@@ -1,0 +1,51 @@
+/* Two-column text + image band inside an article body. Mobile-first: stacked;
+   side-by-side from 900px. */
+
+.text-and-image > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.text-and-image .text-and-image-col {
+  min-width: 0;
+}
+
+.text-and-image .text-and-image-col figure {
+  margin: 0;
+}
+
+.text-and-image .text-and-image-media picture,
+.text-and-image .text-and-image-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text-and-image .text-and-image-col figcaption {
+  margin-top: 8px;
+  color: rgb(103 103 103);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.text-and-image .text-and-image-col p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.text-and-image .text-and-image-col p:first-child {
+  margin-top: 0;
+}
+
+@media (width >= 900px) {
+  .text-and-image > div {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .text-and-image .text-and-image-2-cols .text-and-image-col {
+    flex: 1 1 0;
+  }
+}

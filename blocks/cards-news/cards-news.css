@@ -16,6 +16,33 @@ main > .section.cards-news-container {
   text-align: center;
 }
 
+/* Publish date band (added by cards-news.js on article pages) — sits at the top
+   of the grey aside with its own white background, above the heading. Negative
+   margins pull it out to the aside wrapper's edges (which has 40px padding),
+   including the left so the white band runs flush up to the article body (no
+   grey gap on the left). */
+.cards-news .cards-news-aside-date {
+  margin: -40px -40px 24px;
+  padding: 24px 40px;
+  background-color: rgb(255 255 255);
+  color: rgb(103 103 103);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* "Relaterte artikler" aside heading (added by cards-news.js on article pages).
+   Navy, uppercase, 18px — matches the source ffe-h5 related-list header. */
+.cards-news .cards-news-heading {
+  margin: 0 0 24px;
+  color: rgb(0 39 118);
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
 .cards-news > ul {
   list-style: none;
   margin: 0;
@@ -100,4 +127,11 @@ main > .section.cards-news-container {
   .cards-news > ul {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* In the news-article aside the cards-news block is a narrow right-hand column,
+   so the multi-column grid above would make each card unreadably thin. Force a
+   single card per row there (overrides the 2-/4-column rules at every width). */
+body:has(main .article-header) .cards-news-container .cards-news > ul {
+  grid-template-columns: 1fr;
 }

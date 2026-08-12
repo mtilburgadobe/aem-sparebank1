@@ -43,5 +43,37 @@ export default function decorate(block) {
   });
 
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  block.replaceChildren(ul);
+
+  // On news-article pages the block is the "Relaterte artikler" aside. Two things
+  // are added here, scoped to that aside so the landing "Nytt og nyttig" feed
+  // (heading authored as default content above the block) stays untouched:
+  //   1. The publish date, relocated from the article header into a white band at
+  //      the very top of the (grey) aside column.
+  //   2. The fixed "Relaterte artikler" section heading — the parser drops it
+  //      because it lived inside the related-list wrapper the parser replaces.
+  const isArticleAside = document.querySelector('main .article-header')
+    && block.closest('.cards-news-container');
+  if (isArticleAside) {
+    const children = [];
+
+    // Move the date out of the header byline to the top of the aside. The header
+    // (eager section) is decorated before this lazy aside, so the element exists.
+    const dateEl = document.querySelector('.article-header-date');
+    const dateText = dateEl?.textContent.trim();
+    if (dateText) {
+      const dateBand = document.createElement('div');
+      dateBand.className = 'cards-news-aside-date';
+      dateBand.textContent = dateText;
+      children.push(dateBand);
+      dateEl.remove();
+    }
+
+    const heading = document.createElement('h2');
+    heading.className = 'cards-news-heading';
+    heading.textContent = 'Relaterte artikler';
+    children.push(heading, ul);
+    block.replaceChildren(...children);
+  } else {
+    block.replaceChildren(ul);
+  }
 }

@@ -12,29 +12,62 @@
  *     Cell 1: Image or Icon (mandatory)
  *     Cell 2: Text content — Title (heading), Description, Call-to-Action
  *
- * Source: a `.newsfeed` holding article `.card` items (split across two
- * `.newsfeed-wrap` groups). Each card has a main image, an uppercase category
- * tag (`.card__tag`), a linked title (`.card__title`), and an optional date
- * (`.card__date`). Each card becomes one 2-column row: [image | tag + title + date].
+ * Two source shapes are supported:
+ *   1. Landing "Nytt og nyttig" feed: a `.newsfeed` of `.card` items — each has
+ *      a main image, an uppercase `.card__tag`, a linked `.card__title`, and an
+ *      optional `.card__date`.
+ *   2. Article "Relaterte artikler" list: `article.related-list__item` items —
+ *      each is a single `<a>` wrapping a thumbnail image and a title (no tag/date).
+ * Each card becomes one 2-column row: [image | tag + title + date].
  */
 export default function parse(element, { document }) {
-  // Each article is a `.card`.
-  const cards = Array.from(element.querySelectorAll('.card'));
+  // Prefer the landing `.card` shape; fall back to article `.related-list__item`.
+  let cards = Array.from(element.querySelectorAll('.card'));
+  const relatedMode = cards.length === 0;
+  if (relatedMode) {
+    cards = Array.from(element.querySelectorAll('article.related-list__item, .related-list__item'));
+  }
 
   const cells = [];
 
   cards.forEach((card) => {
-    // Cell 1: main article image. Restrict to the image container so we never pick
-    // up the decorative arrow icon in `.card__container-content-arrow`.
-    const imageEl = card.querySelector(
-      '.card__container-image img, .card__container-image picture img',
-    );
-    const image = imageEl && imageEl.getAttribute('src') ? imageEl : null;
+    let image;
+    let tag;
+    let title;
+    let date;
 
-    // Cell 2 content — from the content wrapper (excludes the arrow container).
-    const tag = card.querySelector('.card__tag');
-    const title = card.querySelector('.card__title, a.card__title, .card__container-content-wrapper a');
-    const date = card.querySelector('.card__date');
+    if (relatedMode) {
+      // Related-articles card: an <a> wrapping a (lazy-loaded) thumbnail image or
+      // a video placeholder, plus a title in span.related-list__text.
+      // Skip the decorative video placeholder icon (video-ikon.svg).
+      const imageEl = Array.from(card.querySelectorAll('img'))
+        .find((im) => im.getAttribute('src') && !/video-ikon/i.test(im.getAttribute('src')));
+      image = imageEl || null;
+      // Title = the dedicated text span; fall back to the anchor's own text.
+      const link = card.querySelector('a[href]');
+      const titleText = (card.querySelector('.related-list__text')?.textContent
+        || link?.getAttribute('title')
+        || link?.textContent
+        || '').trim();
+      if (link && titleText) {
+        const a = document.createElement('a');
+        a.setAttribute('href', link.getAttribute('href'));
+        a.textContent = titleText;
+        title = a;
+      }
+    } else {
+      // Cell 1: main article image. Restrict to the image container so we never pick
+      // up the decorative arrow icon in `.card__container-content-arrow`.
+      const imageEl = card.querySelector(
+        '.card__container-image img, .card__container-image picture img',
+      );
+      image = imageEl && imageEl.getAttribute('src') ? imageEl : null;
+
+      // Cell 2 content — from the content wrapper (excludes the arrow container).
+      tag = card.querySelector('.card__tag');
+      title = card.querySelector('.card__title, a.card__title, .card__container-content-wrapper a');
+      date = card.querySelector('.card__date');
+    }
 
     // Skip structural/empty cards.
     if (!image && !tag && !title && !date) return;

@@ -13,3 +13,7 @@ helix-importer-ui
 !AGENTS.md
 migration-work/navigation-validation/
 migration-work/footer-validation/
+migration-work/site-scope/
+
+# Importer run output (per-page reports + compiled workbook)
+tools/importer/reports/

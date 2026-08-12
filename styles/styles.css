@@ -339,3 +339,104 @@ main .section.warm-cream {
   margin: 0;
   padding: 64px 0;
 }
+
+/* ── News/article template ──────────────────────────────────────────────────
+   The article body is default content (headings + paragraphs + figures +
+   centered buttons). It is served in a section carrying the `article-body`
+   style so its measure is narrower than the full page grid, matching the source
+   (~800px reading column). */
+
+/* Page background: the source renders the article as a white "card" centered on
+   a light-grey page (body rgb(243 243 243)). Scope to news-article pages only
+   (identified by the presence of the article-header block) so other templates
+   keep the default white page. */
+body:has(main .article-header) {
+  background-color: rgb(243 243 243);
+}
+
+/* `main` is the centered white card (max-width 1144px). Its three sections lay
+   out like the live `.sb1-article`: the header spans the full width, then the
+   article body (left) and the related-articles/tags aside (right) share the row
+   beneath it. Mobile-first: a single stacked column; two columns from 900px. */
+body:has(main .article-header) main {
+  max-width: 1144px;
+  margin: 40px auto;
+  background-color: rgb(255 255 255);
+}
+
+body:has(main .article-header) main > .section {
+  margin: 0;
+}
+
+/* Section wrappers fill their column (no separate centering/bg/max-width); side
+   padding gives the card its inner margin. */
+body:has(main .article-header) main > .section > div {
+  max-width: none;
+  margin: 0;
+  padding: 0 24px 40px;
+}
+
+@media (width >= 900px) {
+  /* Two-column grid: flexible body + fixed 340px aside. The header spans both. */
+  body:has(main .article-header) main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+
+  body:has(main .article-header) main > .section.article-header-container {
+    grid-column: 1 / -1;
+  }
+
+  body:has(main .article-header) main > .section.article-body {
+    grid-column: 1;
+  }
+
+  body:has(main .article-header) main > .section.article-body > div {
+    padding: 0 40px 40px;
+  }
+
+  /* Related articles + tags — right column, top-aligned with the body. The aside
+     sits on the grey page colour (rgb(243 243 243)) rather than the white card,
+     matching the live layout; its wrapper carries the fill and its own padding. */
+  body:has(main .article-header) main > .section.cards-news-container {
+    grid-column: 2;
+    background-color: rgb(243 243 243);
+  }
+
+  body:has(main .article-header) main > .section.cards-news-container > div {
+    padding: 40px;
+    background-color: rgb(243 243 243);
+  }
+}
+
+/* Lead / ingress paragraph — the first paragraph reads larger and navy. */
+main .section.article-body .default-content-wrapper > p:first-of-type {
+  color: var(--heading-color, rgb(0 39 118));
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+/* Standalone figures (captioned images) center their caption. */
+main .section.article-body .default-content-wrapper figure {
+  margin: 24px 0;
+}
+
+main .section.article-body .default-content-wrapper figcaption {
+  margin-top: 8px;
+  color: rgb(103 103 103);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+}
+
+main .section.article-body .default-content-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Article CTA buttons are centered in the source. */
+main .section.article-body .default-content-wrapper .button-wrapper {
+  text-align: center;
+}

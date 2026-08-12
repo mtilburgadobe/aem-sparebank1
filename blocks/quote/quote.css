@@ -1,0 +1,35 @@
+/* Pull-quote — large blue italic quotation with attribution.
+   Matches sb1-story quote styling. */
+
+.quote {
+  margin: 48px auto;
+  max-width: 720px;
+  text-align: center;
+}
+
+.quote .quote-text {
+  margin: 0;
+  color: var(--link-color, rgb(0 90 164));
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.quote .quote-attribution {
+  margin: 16px 0 0;
+  color: var(--link-color, rgb(0 90 164));
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+@media (width >= 900px) {
+  .quote {
+    margin: 64px auto;
+  }
+
+  .quote .quote-text {
+    font-size: 1.75rem;
+    line-height: 1.43;
+  }
+}

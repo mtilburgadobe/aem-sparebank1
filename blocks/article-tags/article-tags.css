@@ -1,0 +1,33 @@
+/* "Relaterte tema" — heading + hashtag chips. */
+
+.article-tags {
+  margin-top: 32px;
+}
+
+.article-tags .article-tags-heading {
+  margin: 0 0 12px;
+  color: var(--heading-color, rgb(0 39 118));
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.article-tags .article-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-tags .article-tags-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgb(0 90 164);
+  border-radius: 96px;
+  color: var(--link-color, rgb(0 90 164));
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.article-tags .article-tags-chip:hover {
+  background: rgb(0 90 164);
+  color: rgb(255 255 255);
+}
