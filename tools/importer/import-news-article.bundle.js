@@ -293,6 +293,15 @@ var CustomImportScript = (() => {
       WebImporter.DOMUtils.remove(element, [
         "button.button--open-modal"
       ]);
+      element.querySelectorAll("a[href]").forEach((a) => {
+        const href = a.getAttribute("href");
+        if (!href) return;
+        let path = href.replace(/^https?:\/\/www\.sparebank1\.no/, "");
+        if (!path.startsWith("/")) return;
+        path = path.replace(/^\/content\/sites\/sb1(?=\/)/, "");
+        path = path.replace(/\.html(?=$|[?#])/, "");
+        if (path !== href) a.setAttribute("href", path);
+      });
       element.querySelectorAll("div.sb1-article, div.sb1-story__body").forEach((wrapper) => {
         wrapper.replaceWith(...wrapper.childNodes);
       });

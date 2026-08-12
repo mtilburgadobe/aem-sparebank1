@@ -107,6 +107,27 @@ export default function transform(hookName, element, payload) {
       'button.button--open-modal',
     ]);
 
+    // 5b) Normalize internal link hrefs to EDS paths. The source authors internal
+    //    links two ways, neither of which resolves on the migrated site:
+    //      /content/sites/sb1/nb/bank/.../page.html  (AEM repository path)
+    //      /nb/bank/.../page.html                     (public path WITH .html)
+    //    EDS serves these at /nb/bank/.../page (no /content/sites/sb1 prefix, no
+    //    .html extension), so related-article and topic links 404 otherwise. Strip
+    //    the repo prefix and the .html suffix while preserving any query/hash.
+    element.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      // Only touch site-internal links (root-relative or same-origin sparebank1.no).
+      let path = href
+        .replace(/^https?:\/\/www\.sparebank1\.no/, '');
+      if (!path.startsWith('/')) return;
+      // Drop the AEM repository prefix.
+      path = path.replace(/^\/content\/sites\/sb1(?=\/)/, '');
+      // Strip .html before any ?query or #hash (e.g. /a/b.html?x=1 → /a/b?x=1).
+      path = path.replace(/\.html(?=$|[?#])/, '');
+      if (path !== href) a.setAttribute('href', path);
+    });
+
     // 6) Unwrap the article container(s) so their regions become direct children
     //    of #main-content. For sb1-article that yields three sections (header,
     //    content, aside); for sb1-story it flattens the single body wrapper. The
